@@ -2,25 +2,29 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./global.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import ProductsPage from "./pages/ProductsPage";
 import Itemsprovider from "./providers/Itemsprovider";
-import ItemPage from "./pages/ItemPage";
+import HomePage from "./pages/HomePage";
+import ProductPage from "./pages/ProductPage";
+import FilterProvider from "./providers/FilterProvider";
+import { Filter } from "lucide-react";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <ProductsPage />,
+    element: <HomePage />,
   },
   {
-    path: "/products/:profileId",
-    element: <ItemPage />,
+    path: "/product/:profileId",
+    element: <ProductPage />,
   },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Itemsprovider>
-      <RouterProvider router={router} />
+      <FilterProvider>
+        <RouterProvider router={router} />
+      </FilterProvider>
     </Itemsprovider>
   </React.StrictMode>
 );

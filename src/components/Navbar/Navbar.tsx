@@ -1,88 +1,68 @@
 import {
   Menubar,
-  MenubarCheckboxItem,
   MenubarContent,
   MenubarItem,
   MenubarMenu,
-  MenubarRadioGroup,
-  MenubarRadioItem,
-  MenubarSeparator,
-  MenubarShortcut,
-  MenubarSub,
-  MenubarSubContent,
-  MenubarSubTrigger,
   MenubarTrigger,
 } from "@/components/ui/menubar";
+
+import { Input } from "@/components/ui/input";
+
 import { Category } from "@/data/interfaces";
 import { ItemContext } from "@/providers/Itemsprovider";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { Button } from "../ui/button";
+import { ArrowLeft, Search, Text } from "lucide-react";
+import { getCategories } from "@/utils/manipulateData";
 
 type NavbarProps = {};
 
 const Navbar = ({}: NavbarProps) => {
-  const { state } = useContext(ItemContext);
-  const categories: Category[] = [];
-
-  // Populate categories from category inside item
-  state.items.map((item) => {
-    if (!categories.some((category) => category.id === item.category.id)) {
-      categories.push(item.category);
-    }
-  });
+  const { itemState } = useContext(ItemContext);
+  const categories: Category[] = getCategories(itemState.items);
 
   return (
-    <header className="w-full">
-      <Menubar className="flex justify-center p-8">
-        <MenubarMenu>
-          <Link to={"/"}>
-            <MenubarTrigger>Products</MenubarTrigger>
-          </Link>
-          <MenubarContent>
-            {categories &&
-              categories.map((category) => {
-                return (
-                  <MenubarItem key={category.id}>{category.name}</MenubarItem>
-                );
-              })}
-          </MenubarContent>
-        </MenubarMenu>
-        <MenubarMenu>
-          <MenubarTrigger>About</MenubarTrigger>
-          <MenubarContent>
-            <MenubarCheckboxItem>Always Show Bookmarks Bar</MenubarCheckboxItem>
-            <MenubarCheckboxItem checked>
-              Always Show Full URLs
-            </MenubarCheckboxItem>
-            <MenubarSeparator />
-            <MenubarItem inset>
-              Reload <MenubarShortcut>⌘R</MenubarShortcut>
-            </MenubarItem>
-            <MenubarItem disabled inset>
-              Force Reload <MenubarShortcut>⇧⌘R</MenubarShortcut>
-            </MenubarItem>
-            <MenubarSeparator />
-            <MenubarItem inset>Toggle Fullscreen</MenubarItem>
-            <MenubarSeparator />
-            <MenubarItem inset>Hide Sidebar</MenubarItem>
-          </MenubarContent>
-        </MenubarMenu>
-        <MenubarMenu>
-          <MenubarTrigger>Profiles</MenubarTrigger>
-          <MenubarContent>
-            <MenubarRadioGroup value="benoit">
-              <MenubarRadioItem value="andy">Andy</MenubarRadioItem>
-              <MenubarRadioItem value="benoit">Benoit</MenubarRadioItem>
-              <MenubarRadioItem value="Luis">Luis</MenubarRadioItem>
-            </MenubarRadioGroup>
-            <MenubarSeparator />
-            <MenubarItem inset>Edit...</MenubarItem>
-            <MenubarSeparator />
-            <MenubarItem inset>Add Profile...</MenubarItem>
-          </MenubarContent>
-        </MenubarMenu>
-      </Menubar>
-    </header>
+    <section className="mb-4 flex flex-col gap-2">
+      <section className="flex justify-between h-fit  px-5">
+        <img className="w-52" src="/src/assets/logo.png" alt="Logo" />
+        <section className="flex gap-3">
+          <Menubar className="border-none">
+            <MenubarMenu>
+              <Link to={"/"}>
+                <MenubarTrigger>
+                  <Text />
+                  Categories
+                </MenubarTrigger>
+              </Link>
+              <MenubarContent>
+                {categories &&
+                  categories.map((category) => {
+                    return (
+                      <MenubarItem key={category.id}>
+                        {category.name}
+                      </MenubarItem>
+                    );
+                  })}
+              </MenubarContent>
+            </MenubarMenu>
+          </Menubar>
+          <section className="flex gap-3">
+            <Input type="text" placeholder="What are you looking for?" />
+            <Button>
+              <Search className="mr-2 h-4 w-4" /> Search
+            </Button>
+          </section>
+        </section>
+      </section>
+      <section>
+        <Link to="/">
+          <Button variant="ghost">
+            <ArrowLeft className="w-4 h-4 mr-2" /> Back To Previous page
+          </Button>
+        </Link>
+      </section>
+    </section>
   );
 };
 

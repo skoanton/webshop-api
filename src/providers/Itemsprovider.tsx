@@ -1,7 +1,7 @@
 import { Item } from "@/data/interfaces";
 import React, { createContext, useReducer } from "react";
 
-export const ACTION = {
+export const ITEM_ACTION = {
   ADD: "ADD",
 };
 
@@ -10,20 +10,20 @@ type Action = {
   payload: Item[];
 };
 
-type State = {
+type ItemState = {
   items: Item[];
 };
 
-const initialState: State = {
+const initialItemState: ItemState = {
   items: [],
 };
 
-const reducer = (state: State, action: Action): State => {
+const reducer = (itemState: ItemState, action: Action): ItemState => {
   switch (action.type) {
-    case ACTION.ADD:
-      return { ...state, items: action.payload };
+    case ITEM_ACTION.ADD:
+      return { ...itemState, items: action.payload };
     default:
-      return state;
+      return itemState;
   }
 };
 
@@ -32,9 +32,9 @@ type ItemsproviderProps = {
 };
 
 const Itemsprovider = ({ children }: ItemsproviderProps) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [itemState, dispatch] = useReducer(reducer, initialItemState);
   return (
-    <ItemContext.Provider value={{ state, dispatch }}>
+    <ItemContext.Provider value={{ itemState, dispatch }}>
       {children}
     </ItemContext.Provider>
   );
@@ -43,6 +43,6 @@ const Itemsprovider = ({ children }: ItemsproviderProps) => {
 export default Itemsprovider;
 
 export const ItemContext = createContext<{
-  state: State;
+  itemState: ItemState;
   dispatch: React.Dispatch<Action>;
-}>({ state: initialState, dispatch: () => null });
+}>({ itemState: initialItemState, dispatch: () => null });

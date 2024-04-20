@@ -10,7 +10,7 @@ const ItemPage = ({}: ItemPageProps) => {
   return (
     <>
       <Navbar />
-      {params.profileId && <ProductCard id={params.profileId} />}
+      {params.profileId && <ProductCard id={params.profileId} big={false} />}
     </>
   );
 };

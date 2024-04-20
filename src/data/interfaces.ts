@@ -4,8 +4,6 @@ export type Item = {
     price:       number;
     description: string;
     images:      string[];
-    creationAt:  Date;
-    updatedAt:   Date;
     category:    Category;
 }
 
@@ -17,4 +15,14 @@ export type Category = {
     updatedAt:  Date;
 }
 
+
 export type Name = "Clothes" | "Electronics" | "Uncharter" | "Shoes" | "Miscellaneous" | "Waoov nice product";
+
+export type Filters = {
+    categories: Name[];
+    priceRange: {
+        minPrice: number,
+        maxPrice: number
+    }
+    filterActive: boolean
+}
