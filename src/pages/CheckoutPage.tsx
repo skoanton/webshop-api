@@ -1,15 +1,15 @@
-import { CartContext } from "@/contexts/CartContext/CartContext";
-import { useContext } from "react";
+import Checkout from "@/components/Checkout/Checkout";
+import Header from "@/components/Header/Header";
 
 type CheckoutPageProps = {};
 
 const CheckoutPage = ({}: CheckoutPageProps) => {
-  const { cartState } = useContext(CartContext);
   return (
     <>
-      {cartState.cart.items.map((item) => {
-        return <p>{item.title}</p>;
-      })}
+      <Header />
+      <main className="h-screen bg-secondary px-2">
+        <Checkout />
+      </main>
     </>
   );
 };

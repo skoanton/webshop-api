@@ -8,6 +8,6 @@ export type ItemsAction = {
 };
 export const ItemsContext = createContext<{
     itemsState: ItemsState;
-    itemDispatch: React.Dispatch<ItemsAction>;
-  }>({ itemsState: initialItemsState, itemDispatch: () => null });
+    itemsDispatch: React.Dispatch<ItemsAction>;
+  }>({ itemsState: initialItemsState, itemsDispatch: () => null });
   
