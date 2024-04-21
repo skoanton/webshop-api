@@ -15,20 +15,5 @@ export type Category = {
     updatedAt:  Date;
 }
 
-
 export type Name = "Clothes" | "Electronics" | "Uncharter" | "Shoes" | "Miscellaneous" | "Waoov nice product";
 
-export type Filters = {
-    categories: Name[];
-    priceRange: {
-        minPrice: number,
-        maxPrice: number
-    }
-    filterActive: boolean,
-    searchString: string,
-}
-
-export type Cart = {
-    items:Item[],
-    totalCost: number
-}

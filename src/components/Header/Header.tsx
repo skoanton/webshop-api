@@ -9,15 +9,15 @@ import { Button } from "../ui/button";
 import { ShoppingCart } from "lucide-react";
 import Navbar from "../Navbar/Navbar";
 import { useContext } from "react";
-import { CartContext } from "@/providers/CartProvider";
 import { Link } from "react-router-dom";
+import { CartContext } from "@/contexts/CartContext/CartContext";
 type HeaderProps = {};
 
 const Header = ({}: HeaderProps) => {
   const { cartState } = useContext(CartContext);
   console.log("Updatering cart");
   return (
-    <header>
+    <header className="mx-2">
       <section className="flex justify-between">
         <NavigationMenu className="cursor-pointer">
           <NavigationMenuList>

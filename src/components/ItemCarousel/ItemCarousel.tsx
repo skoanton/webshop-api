@@ -1,5 +1,3 @@
-import { Card, CardContent, CardTitle } from "@/components/ui/card";
-
 import {
   Carousel,
   CarouselContent,
@@ -7,18 +5,16 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { Item } from "@/data/interfaces";
 
-import { ItemContext } from "@/providers/Itemsprovider";
 import { useContext, useEffect, useState } from "react";
-import ProductCard from "../ProductCard/ProductCard";
+import { ItemsContext } from "@/contexts/ItemContext/ItemsContext";
 
 type CarouselProps = {
   images: string[];
 };
 
 const ItemCarousel = ({ images }: CarouselProps) => {
-  const { itemState } = useContext(ItemContext);
+  const { itemsState } = useContext(ItemsContext);
   const totalItemsToShow = 5;
 
   const imagesInCarousel = images.slice(1);

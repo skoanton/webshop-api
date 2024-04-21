@@ -7,7 +7,6 @@ type useFetchProps<T> = {
 export const useFetch =<T extends object> ({url}: useFetchProps<T>): T | null => {
 
     const [data,setData] = useState<T | null>(null);
-    const [isLoading,setLoading] = useState(true);
     useEffect (() => {
         const fetchApi = async () => {
             try{
@@ -16,7 +15,6 @@ export const useFetch =<T extends object> ({url}: useFetchProps<T>): T | null =>
 
             if(!ignore){
                 setData(data);
-                setLoading(false);
             }
             }
             catch(error){

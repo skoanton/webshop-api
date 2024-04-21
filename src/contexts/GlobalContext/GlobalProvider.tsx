@@ -1,8 +1,7 @@
 import React from "react";
-import Itemsprovider from "./Itemsprovider";
-import FilterProvider from "./FilterProvider";
-import CartProvider from "./CartProvider";
-import { CircleHelpIcon } from "lucide-react";
+import Itemsprovider from "../ItemContext/ItemsProvider";
+import FilterProvider from "../FilterProvider/FilterProvider";
+import CartProvider from "../CartContext/CartProvider";
 
 type GlobalProviderProps = {
   children: React.ReactNode;

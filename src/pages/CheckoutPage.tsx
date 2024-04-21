@@ -1,4 +1,4 @@
-import { CartContext } from "@/providers/CartProvider";
+import { CartContext } from "@/contexts/CartContext/CartContext";
 import { useContext } from "react";
 
 type CheckoutPageProps = {};

@@ -14,15 +14,17 @@ import {
 import { Slider } from "@/components/ui/slider";
 
 import { Checkbox } from "@/components/ui/checkbox";
-import { Category, Filters } from "@/data/interfaces";
-import { ItemContext } from "@/providers/Itemsprovider";
+
 import { getCategories } from "@/utils/manipulateData";
 import { useContext, useState } from "react";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { ArrowRight } from "lucide-react";
 import { CheckedState } from "@radix-ui/react-checkbox";
-import { FILTER_ACTION, FilterContext } from "@/providers/FilterProvider";
+import { FilterContext } from "@/contexts/FilterProvider/FilterContext";
+import { ItemsContext } from "@/contexts/ItemContext/ItemsContext";
+import { Category } from "@/types/itemsType";
+import { FILTER_ACTION } from "@/contexts/FilterProvider/FilterReducer";
 
 type FilterProps = {};
 
@@ -30,9 +32,9 @@ const Filter = ({}: FilterProps) => {
   const { filterState, filterDispatch } = useContext(FilterContext);
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(999);
-  const { itemState } = useContext(ItemContext);
+  const { itemsState } = useContext(ItemsContext);
 
-  const categories: Category[] = getCategories(itemState.items);
+  const categories: Category[] = getCategories(itemsState.items);
 
   const handleChange = (checked: CheckedState, category: Category) => {
     if (checked) {
@@ -49,11 +51,13 @@ const Filter = ({}: FilterProps) => {
     });
   };
 
-  const handleReset = () => {};
+  const handleReset = () => {
+    filterDispatch({ type: FILTER_ACTION.RESET });
+  };
 
   return (
     <>
-      <Card className="min-w-96 max-h-min">
+      <Card className="min-w-96 h-2/4">
         <CardHeader>
           <CardTitle>Filters</CardTitle>
         </CardHeader>
