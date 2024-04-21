@@ -32,9 +32,9 @@ type ItemsproviderProps = {
 };
 
 const Itemsprovider = ({ children }: ItemsproviderProps) => {
-  const [itemState, dispatch] = useReducer(reducer, initialItemState);
+  const [itemState, itemDispatch] = useReducer(reducer, initialItemState);
   return (
-    <ItemContext.Provider value={{ itemState, dispatch }}>
+    <ItemContext.Provider value={{ itemState, itemDispatch }}>
       {children}
     </ItemContext.Provider>
   );
@@ -44,5 +44,5 @@ export default Itemsprovider;
 
 export const ItemContext = createContext<{
   itemState: ItemState;
-  dispatch: React.Dispatch<Action>;
-}>({ itemState: initialItemState, dispatch: () => null });
+  itemDispatch: React.Dispatch<Action>;
+}>({ itemState: initialItemState, itemDispatch: () => null });

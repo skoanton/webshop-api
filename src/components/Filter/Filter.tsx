@@ -1,4 +1,10 @@
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "../ui/card";
 import {
   Accordion,
   AccordionContent,
@@ -21,7 +27,7 @@ import { FILTER_ACTION, FilterContext } from "@/providers/FilterProvider";
 type FilterProps = {};
 
 const Filter = ({}: FilterProps) => {
-  const { filterState, dispatch } = useContext(FilterContext);
+  const { filterState, filterDispatch } = useContext(FilterContext);
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(999);
   const { itemState } = useContext(ItemContext);
@@ -29,15 +35,21 @@ const Filter = ({}: FilterProps) => {
   const categories: Category[] = getCategories(itemState.items);
 
   const handleChange = (checked: CheckedState, category: Category) => {
-    console.log(checked, "is", category);
     if (checked) {
-      dispatch({ type: FILTER_ACTION.ADD, payload: category });
+      filterDispatch({ type: FILTER_ACTION.ADD, payload: category });
     } else {
-      dispatch({ type: FILTER_ACTION.REMOVE, payload: category });
+      filterDispatch({ type: FILTER_ACTION.REMOVE, payload: category });
     }
   };
 
-  const handlePriceChange = () => {};
+  const handlePriceChange = () => {
+    filterDispatch({
+      type: FILTER_ACTION.UPDATE_PRICE,
+      payload: { minPrice: minPrice, maxPrice: maxPrice },
+    });
+  };
+
+  const handleReset = () => {};
 
   return (
     <>
@@ -50,25 +62,14 @@ const Filter = ({}: FilterProps) => {
             <AccordionItem value="category">
               <AccordionTrigger>Category</AccordionTrigger>
               <AccordionContent>
-                <div key={"all"} className="items-top flex space-x-2">
-                  <Checkbox
-                    id={"all"}
-                    checked={filterState.filters.categories.length === 0}
-                  />
-                  <div className="grid gap-2 leading-none">
-                    <label
-                      htmlFor={"all"}
-                      className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                    >
-                      All
-                    </label>
-                  </div>
-                </div>
                 {categories.map((category) => {
                   return (
                     <div key={category.id} className="items-top flex space-x-2">
                       <Checkbox
                         id={category.id.toString()}
+                        defaultChecked={filterState.filters.categories.includes(
+                          category.name
+                        )}
                         onCheckedChange={(checked) =>
                           handleChange(checked, category)
                         }
@@ -114,6 +115,9 @@ const Filter = ({}: FilterProps) => {
             </AccordionItem>
           </Accordion>
         </CardContent>
+        <CardFooter className="flex justify-center">
+          <Button onClick={handleReset}>Reset filters</Button>
+        </CardFooter>
       </Card>
     </>
   );

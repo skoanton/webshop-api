@@ -4,7 +4,7 @@ type useFetchProps<T> = {
     url: string,
 }
 
-export const useFetch =<T extends object> ({url}: useFetchProps<T>):{data: T | null, isLoading: boolean }=> {
+export const useFetch =<T extends object> ({url}: useFetchProps<T>): T | null => {
 
     const [data,setData] = useState<T | null>(null);
     const [isLoading,setLoading] = useState(true);
@@ -31,6 +31,6 @@ export const useFetch =<T extends object> ({url}: useFetchProps<T>):{data: T | n
             
         }
     },[url])
-    return {data,isLoading};
+    return data;
 
 }

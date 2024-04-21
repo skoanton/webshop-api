@@ -12,9 +12,10 @@ import { Item } from "@/data/interfaces";
 import { useContext, useEffect, useState } from "react";
 import { ItemContext } from "@/providers/Itemsprovider";
 import { Button } from "../ui/button";
-import { ShoppingBasket } from "lucide-react";
+import { Heart, ShoppingBasket } from "lucide-react";
 import { Input } from "../ui/input";
-
+import { CART_ACTION, CartContext } from "@/providers/CartProvider";
+import ItemCarousel from "../ItemCarousel/ItemCarousel";
 type ProductCardProps = {
   id: number | string;
   big: boolean;
@@ -22,26 +23,34 @@ type ProductCardProps = {
 
 const ProductCard = ({ id, big }: ProductCardProps) => {
   const { itemState } = useContext(ItemContext);
+  const { cartDispatch } = useContext(CartContext);
   const [currentCost, setCurrentCost] = useState(0);
+  const [quanity, setQuanity] = useState(1);
   const currentItem: Item | undefined = itemState.items.find(
     (item) => item.id.toString() === id.toString()
   );
 
   if (big) {
     useEffect(() => {
-      console.log("inside useEffect");
       if (currentItem) {
         setCurrentCost(currentItem.price);
       }
     }, [currentItem]);
   }
 
+  const handleAddToCart = (item: Item, quanity: number) => {
+    cartDispatch({
+      type: CART_ACTION.ADD_ITEM,
+      payload: { item: item, quanity: quanity },
+    });
+  };
+
   return (
     <>
       {currentItem &&
         (!big ? (
-          <Link to={`product/${currentItem.id.toString()}`} className="h-min">
-            <Card key={id} className={`flex flex-col justify-between`}>
+          <Card key={id} className={`flex flex-col justify-between h-96`}>
+            <Link to={`product/${currentItem.id.toString()}`}>
               <CardContent className="bg-secondary">
                 <img
                   className="w-32 h-32 mx-auto"
@@ -49,24 +58,43 @@ const ProductCard = ({ id, big }: ProductCardProps) => {
                   alt="Product image"
                 />
               </CardContent>
+            </Link>
+            <Link to={`product/${currentItem.id.toString()}`}>
               <CardHeader>
                 <CardTitle>{currentItem.title}</CardTitle>
                 <CardDescription>{currentItem.category.name}</CardDescription>
               </CardHeader>
-              <CardFooter className="flex-row justify-between">
-                <p className="font-bold text-xl text-secondary-foreground">
-                  ${currentItem.price}
-                </p>
-                <Button>
-                  <ShoppingBasket className="w-4 h-4" />
-                </Button>
-              </CardFooter>
-            </Card>
-          </Link>
+            </Link>
+            <CardFooter className="flex-row justify-between mt-auto">
+              <p className="font-bold text-xl text-secondary-foreground">
+                ${currentItem.price}
+              </p>
+              <Button onClick={() => handleAddToCart(currentItem, 1)}>
+                <ShoppingBasket className="w-4 h-4" />
+              </Button>
+            </CardFooter>
+          </Card>
         ) : (
           <section className="flex gap-2 h-full p-4 bg-secondary">
             <section className="w-1/3 h-full">
-              <img src={"/src/assets/shoe.png"} alt="Product page" />
+              <img
+                className="w-3/4 mx-auto"
+                src={"/src/assets/shoe.png"}
+                alt="Product page"
+              />
+              <ItemCarousel
+                images={[
+                  "/src/assets/shoe.png",
+                  "/src/assets/shoe.png",
+                  "/src/assets/shoe.png",
+                  "/src/assets/shoe.png",
+                  "/src/assets/shoe.png",
+                  "/src/assets/shoe.png",
+                  "/src/assets/shoe.png",
+                  "/src/assets/shoe.png",
+                  "/src/assets/shoe.png",
+                ]}
+              />
             </section>
             <section className="w-1/3 h-full">
               <Card className="h-2/4 flex flex-col justify-between">
@@ -86,9 +114,8 @@ const ProductCard = ({ id, big }: ProductCardProps) => {
                     </p>
                   </section>
                   <section>
-                    <Button variant="secondary">
-                      <ShoppingBasket className="w-4 h-4 mr-2" /> Add to
-                      favorites
+                    <Button disabled variant="ghost">
+                      <Heart className="w-4 h-4 mr-2" /> Add to favorites (WIP)
                     </Button>
                   </section>
                 </CardFooter>
@@ -115,6 +142,7 @@ const ProductCard = ({ id, big }: ProductCardProps) => {
                         setCurrentCost(
                           currentItem.price * parseInt(e.target.value)
                         );
+                        setQuanity(parseInt(e.currentTarget.value));
                       }}
                     />
                   </section>
@@ -133,7 +161,11 @@ const ProductCard = ({ id, big }: ProductCardProps) => {
                   </section>
                 </CardContent>
                 <CardFooter className="justify-center">
-                  <Button>
+                  <Button
+                    onClick={() => {
+                      handleAddToCart(currentItem, quanity);
+                    }}
+                  >
                     <ShoppingBasket className="w-4 h-4 mr-2" /> Add to cart
                   </Button>
                 </CardFooter>

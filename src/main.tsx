@@ -7,6 +7,8 @@ import HomePage from "./pages/HomePage";
 import ProductPage from "./pages/ProductPage";
 import FilterProvider from "./providers/FilterProvider";
 import { Filter } from "lucide-react";
+import GlobalProvider from "./providers/GlobalProvider";
+import CheckoutPage from "./pages/CheckoutPage";
 
 const router = createBrowserRouter([
   {
@@ -17,14 +19,16 @@ const router = createBrowserRouter([
     path: "/product/:profileId",
     element: <ProductPage />,
   },
+  {
+    path: "/checkout",
+    element: <CheckoutPage />,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <Itemsprovider>
-      <FilterProvider>
-        <RouterProvider router={router} />
-      </FilterProvider>
-    </Itemsprovider>
+    <GlobalProvider>
+      <RouterProvider router={router} />
+    </GlobalProvider>
   </React.StrictMode>
 );

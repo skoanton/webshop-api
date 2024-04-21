@@ -24,5 +24,11 @@ export type Filters = {
         minPrice: number,
         maxPrice: number
     }
-    filterActive: boolean
+    filterActive: boolean,
+    searchString: string,
+}
+
+export type Cart = {
+    items:Item[],
+    totalCost: number
 }

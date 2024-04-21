@@ -8,9 +8,14 @@ import {
 import { Button } from "../ui/button";
 import { ShoppingCart } from "lucide-react";
 import Navbar from "../Navbar/Navbar";
+import { useContext } from "react";
+import { CartContext } from "@/providers/CartProvider";
+import { Link } from "react-router-dom";
 type HeaderProps = {};
 
 const Header = ({}: HeaderProps) => {
+  const { cartState } = useContext(CartContext);
+  console.log("Updatering cart");
   return (
     <header>
       <section className="flex justify-between">
@@ -34,12 +39,14 @@ const Header = ({}: HeaderProps) => {
           </NavigationMenuList>
         </NavigationMenu>
         <section>
-          <Button variant={"link"} className="relative">
-            <ShoppingCart className="w-8 h-8" />
-            <div className="absolute bottom-6 right-2 rounded bg-secondary w-4 h-4 text-center">
-              1
-            </div>
-          </Button>
+          <Link to="/checkout">
+            <Button variant={"link"} className="relative">
+              <ShoppingCart className="w-8 h-8" />
+              <div className="absolute bottom-6 right-2 rounded bg-secondary w-4 h-4 text-center">
+                {cartState.cart.items.length}
+              </div>
+            </Button>
+          </Link>
         </section>
       </section>
       <Navbar />
