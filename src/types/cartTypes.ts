@@ -1,6 +1,6 @@
 import { Item } from "./itemsType"
 
 export type Cart = {
-    items:Item[],
+    items:Item[][],
     totalCost: number
 }

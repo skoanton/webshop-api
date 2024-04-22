@@ -2,11 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./global.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Itemsprovider from "./contexts/ItemContext/ItemsProvider";
 import HomePage from "./pages/HomePage";
 import ProductPage from "./pages/ProductPage";
-import FilterProvider from "./contexts/FilterProvider/FilterProvider";
-import { Filter } from "lucide-react";
+
 import GlobalProvider from "./contexts/GlobalContext/GlobalProvider";
 import CheckoutPage from "./pages/CheckoutPage";
 

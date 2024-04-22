@@ -1,10 +1,7 @@
-import { Category, Item } from "@/data/interfaces";
-import { ItemContext } from "@/providers/Itemsprovider";
-import { Cart } from "@/types/cartTypes";
+import { CartContext } from "@/contexts/CartContext/CartContext";
+import { useCart } from "@/hooks/useCart";
+import { Category, Item } from "@/types/itemsType";
 import { useContext } from "react";
-
-
-
 export const getCategories = (items:Item[]): Category[] => {
     
   const categories: Category[] = [];
@@ -17,13 +14,9 @@ export const getCategories = (items:Item[]): Category[] => {
   return categories;
 };
 
-/* export const getCartItems = (cartItems:Cart[]): Item[] => {
-  const cartItems: Cart[] = [];
-  cartItems.map((item) => {
-    if (!cartItems.some((cartItem) => cartItem. === items.id)) {
-      cartItems.push(item.category);
-    }
-  });
-
-  return items;
-} */
+export const getIndexOfItem = (item:Item,items:Item[][]): number => {
+  
+  return items.findIndex((group) =>
+    group.some((items) => items.id === item.id)
+  );
+}
