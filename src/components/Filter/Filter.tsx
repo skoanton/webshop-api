@@ -97,7 +97,7 @@ const Filter = ({}: FilterProps) => {
               <AccordionTrigger>Price Range</AccordionTrigger>
               <AccordionContent>
                 <Slider
-                  defaultValue={[minPrice, maxPrice]}
+                  value={[minPrice, maxPrice]}
                   max={999}
                   step={10}
                   minStepsBetweenThumbs={1}
@@ -108,9 +108,19 @@ const Filter = ({}: FilterProps) => {
                   }}
                 />
                 <section className="flex gap-2 items-center">
-                  <Input className="w-24" type="text" value={`$ ${minPrice}`} />
+                  <Input
+                    className="w-24"
+                    type="text"
+                    value={`$ ${minPrice}`}
+                    readOnly
+                  />
                   <p>to</p>
-                  <Input className="w-24" type="text" value={`$ ${maxPrice}`} />
+                  <Input
+                    className="w-24"
+                    type="text"
+                    value={`$ ${maxPrice}`}
+                    readOnly
+                  />
                   <Button onClick={handlePriceChange}>
                     <ArrowRight className="h-4 w-4" />
                   </Button>
