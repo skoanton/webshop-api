@@ -9,7 +9,7 @@ import {
 } from "../ui/card";
 import { Label } from "@/components/ui/label";
 
-import { useContext, useEffect, useState } from "react";
+import { ChangeEvent, useContext, useEffect, useRef, useState } from "react";
 
 import { Button } from "../ui/button";
 import { ArrowLeft, Heart, ShoppingBasket } from "lucide-react";
@@ -28,7 +28,7 @@ type ProductCardProps = {
 const ProductCard = ({ id, big }: ProductCardProps) => {
   const { itemsState } = useContext(ItemsContext);
   const { cartDispatch } = useContext(CartContext);
-  const [currentCost, setCurrentCost] = useState(0);
+  const [currentCost, setCurrentCost] = useState<number>(0);
   const [quanity, setQuanity] = useState(1);
   const currentItem: Item | undefined = itemsState.items.find(
     (item) => item.id.toString() === id.toString()
@@ -37,9 +37,9 @@ const ProductCard = ({ id, big }: ProductCardProps) => {
   if (big) {
     useEffect(() => {
       if (currentItem) {
-        setCurrentCost(currentItem.price);
+        setCurrentCost(currentItem.price * quanity);
       }
-    }, [currentItem]);
+    }, [currentItem, quanity]);
   }
 
   const handleAddToCart = (item: Item, quanity: number) => {
@@ -48,6 +48,12 @@ const ProductCard = ({ id, big }: ProductCardProps) => {
       payload: { item: item, quanity: quanity },
     });
   };
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setQuanity(Number(e.currentTarget.value));
+  };
+  const decrement = () => setQuanity((prev) => prev - 1);
+  const increment = () => setQuanity((prev) => prev + 1);
 
   return (
     <>
@@ -145,17 +151,28 @@ const ProductCard = ({ id, big }: ProductCardProps) => {
                   <CardContent className="flex flex-col gap-5">
                     <section>
                       <Label htmlFor="quantity">Quantity</Label>
-                      <Input
-                        type="number"
-                        id="quantity"
-                        defaultValue={1}
-                        onChange={(e) => {
-                          setCurrentCost(
-                            currentItem.price * parseInt(e.target.value)
-                          );
-                          setQuanity(parseInt(e.currentTarget.value));
-                        }}
-                      />
+                      <section className="flex gap-2">
+                        <Input
+                          className="w-2/3 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                          type="number"
+                          value={quanity}
+                          id="quantity"
+                          onChange={(e) => {
+                            handleChange(e);
+                            setCurrentCost(
+                              currentItem.price * Number(e.currentTarget.value)
+                            );
+                          }}
+                        />
+                        <section className="flex gap-2">
+                          <Button onClick={decrement} variant="secondary">
+                            -
+                          </Button>
+                          <Button onClick={increment} variant="secondary">
+                            +
+                          </Button>
+                        </section>
+                      </section>
                     </section>
                     <section className="flex justify-between">
                       <CardDescription className="underline">

@@ -1,5 +1,3 @@
-import Filter from "@/components/Filter/Filter";
-import Header from "@/components/Header/Header";
 import ProductCard from "@/components/ProductCard/ProductCard";
 
 import { useFetch } from "@/hooks/useFetch";
@@ -20,7 +18,7 @@ const Products = ({}: ProductsProps) => {
   const fetchedData: Item[] | null = useFetch<Item[]>({
     url: BASE_URL,
   });
-  console.log("Updateing component");
+
   useEffect(() => {
     if (fetchedData) {
       //Weird image links in api response
@@ -30,6 +28,7 @@ const Products = ({}: ProductsProps) => {
         );
         return { ...item, images: cleanedImages };
       });
+
       itemsDispatch({
         type: ITEM_ACTION.ADD,
         payload:
@@ -37,8 +36,6 @@ const Products = ({}: ProductsProps) => {
       });
     }
   }, [fetchedData]);
-
-  console.log("Current Search Word: ", filterState.filters.searchString);
 
   const filteredByCategories = (items: Item[]): Item[] => {
     let test = items.filter((item) => {
@@ -48,7 +45,7 @@ const Products = ({}: ProductsProps) => {
         return filterState.filters.categories.includes(item.category.name);
       }
     });
-    console.log("Filtered by Category: ", test);
+
     return test;
   };
 
@@ -60,7 +57,6 @@ const Products = ({}: ProductsProps) => {
       );
     });
 
-    console.log("Filtered by price: ", test);
     return test;
   };
 
@@ -75,7 +71,6 @@ const Products = ({}: ProductsProps) => {
       }
     });
 
-    console.log("Filtered by String: ", filteredItems);
     return filteredItems;
   };
 
@@ -84,7 +79,6 @@ const Products = ({}: ProductsProps) => {
     filteredItems = filteredByCategories(filteredItems);
     filteredItems = filterByPrice(filteredItems);
 
-    console.log("Final:", filteredItems);
     return filteredItems;
   };
 
