@@ -57,7 +57,7 @@ const Filter = ({}: FilterProps) => {
 
   return (
     <>
-      <Card className="min-w-96 h-2/4">
+      <Card className="min-w-96 h-max">
         <CardHeader>
           <CardTitle>Filters</CardTitle>
         </CardHeader>
@@ -121,7 +121,10 @@ const Filter = ({}: FilterProps) => {
                     value={`$ ${maxPrice}`}
                     readOnly
                   />
-                  <Button onClick={handlePriceChange}>
+                  <Button
+                    className="justify-self-end"
+                    onClick={handlePriceChange}
+                  >
                     <ArrowRight className="h-4 w-4" />
                   </Button>
                 </section>
