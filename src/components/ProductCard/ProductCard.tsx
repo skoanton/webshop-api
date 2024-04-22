@@ -143,11 +143,6 @@ const ProductCard = ({ id, big }: ProductCardProps) => {
                     <CardTitle>Payment</CardTitle>
                   </CardHeader>
                   <CardContent className="flex flex-col gap-5">
-                    <section className="flex gap-2">
-                      <Input type="text" id="discount" placeholder="Discount" />
-                      <Button>Apply</Button>
-                    </section>
-
                     <section>
                       <Label htmlFor="quantity">Quantity</Label>
                       <Input

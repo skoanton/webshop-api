@@ -9,18 +9,19 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
-import React, { ChangeEvent, useContext } from "react";
+import { ChangeEvent, useContext, useState } from "react";
 import { CartContext } from "@/contexts/CartContext/CartContext";
 import { Label } from "@radix-ui/react-label";
 import { Input } from "../ui/input";
 import { CART_ACTION } from "@/contexts/CartContext/CartReducer";
 import { Item } from "@/types/itemsType";
+import { discountCodes } from "@/data/discounts";
 
 type CheckoutProps = {};
 
 const Checkout = ({}: CheckoutProps) => {
   const { cartState, cartDispatch } = useContext(CartContext);
-
+  const [userInputDiscountCode, setUserInputDiscountCode] = useState("");
   const handleCartChange = (e: ChangeEvent<HTMLInputElement>, item: Item[]) => {
     if (parseInt(e.currentTarget.value) <= item.length) {
       cartDispatch({
@@ -111,18 +112,45 @@ const Checkout = ({}: CheckoutProps) => {
           </section>
           <section className="flex-grow">
             <Card className="p-3">
-              <CardContent className="flex justify-between">
-                <CardDescription>Price</CardDescription>
-                <CardTitle>$ {cartState.cart.totalCost}</CardTitle>
-              </CardContent>
+              <CardHeader>
+                <CardTitle className="text-xl">Coupun code</CardTitle>
+                <section className="flex gap-2">
+                  <Input
+                    className="w-3/4"
+                    type="text"
+                    id="discount"
+                    placeholder={`Discount code (${discountCodes[0].code})`}
+                    onChange={(e) =>
+                      setUserInputDiscountCode(e.currentTarget.value)
+                    }
+                  />
+                  <Button
+                    onClick={() =>
+                      cartDispatch({
+                        type: CART_ACTION.SET_DISCOUNT,
+                        payload: userInputDiscountCode,
+                      })
+                    }
+                    variant="destructive"
+                    className="flex-grow"
+                  >
+                    Apply
+                  </Button>
+                </section>
+              </CardHeader>
+
               <CardContent className="flex justify-between">
                 <CardDescription>Discount</CardDescription>
-                <CardTitle>$1000</CardTitle>
+                <CardTitle> $ {cartState.cart.discount}</CardTitle>
               </CardContent>
               <hr className="my-2" />
               <CardContent className="flex justify-between">
                 <CardDescription>Total</CardDescription>
-                <CardTitle>$ {cartState.cart.totalCost}</CardTitle>
+                {cartState.cart.totalCost - cartState.cart.discount > 0 ? (
+                  <CardTitle>$ {cartState.cart.totalCost}</CardTitle>
+                ) : (
+                  <CardTitle>$ 0</CardTitle>
+                )}
               </CardContent>
               <CardFooter>
                 <Button className="mx-auto">Checkout</Button>
