@@ -43,7 +43,10 @@ const Header = ({}: HeaderProps) => {
             <Button variant={"link"} className="relative">
               <ShoppingCart className="w-8 h-8" />
               <div className="absolute bottom-6 right-2 rounded bg-secondary w-4 h-4 text-center">
-                {cartState.cart.items.length}
+                {cartState.cart.items.reduce(
+                  (total, currentArray) => total + currentArray.length,
+                  0
+                )}
               </div>
             </Button>
           </Link>

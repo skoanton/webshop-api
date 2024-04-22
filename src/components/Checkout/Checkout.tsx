@@ -9,15 +9,29 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
-import { useContext } from "react";
+import React, { ChangeEvent, useContext } from "react";
 import { CartContext } from "@/contexts/CartContext/CartContext";
 import { Label } from "@radix-ui/react-label";
 import { Input } from "../ui/input";
+import { CART_ACTION } from "@/contexts/CartContext/CartReducer";
+import { Item } from "@/types/itemsType";
 
 type CheckoutProps = {};
 
 const Checkout = ({}: CheckoutProps) => {
-  const { cartState } = useContext(CartContext);
+  const { cartState, cartDispatch } = useContext(CartContext);
+
+  const handleCartChange = (e: ChangeEvent<HTMLInputElement>, item: Item[]) => {
+    if (parseInt(e.currentTarget.value) < item.length) {
+      cartDispatch({
+        type: CART_ACTION.REMOVE_ITEM,
+        payload: { item: item[0], quanity: parseInt(e.currentTarget.value) },
+      });
+    } else {
+      console.log("Add more");
+    }
+  };
+
   return (
     <>
       <section className="bg-secondary flex flex-col h-full">
@@ -28,41 +42,53 @@ const Checkout = ({}: CheckoutProps) => {
             </Button>
           </Link>
         </section>
-        <section className="flex justify-between w-full  gap-3">
+        <section className="flex justify-between w-full gap-3">
           <section className="w-2/3">
-            <Card className="flex flex-col">
-              <CardHeader className="ml-auto">
-                <CardTitle>$1000</CardTitle>
-              </CardHeader>
-              <CardContent className="flex items-center justify-between">
-                <section className="flex items-center">
-                  <img
-                    className="w-48 h-48"
-                    src="/src/assets/shoe.png"
-                    alt="Product Picture"
-                  />
-                  <CardContent>
-                    <Button className="p-0 text-xl" variant="link">
-                      Title of product
-                    </Button>
-                    <CardDescription>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing...
-                    </CardDescription>
-                  </CardContent>
-                </section>
+            {cartState.cart &&
+              cartState.cart.items.map((item) => {
+                return (
+                  <Card key={item[0].id} className="flex flex-col">
+                    <CardHeader className="ml-auto">
+                      <CardTitle>{item.length * item[0].price}</CardTitle>
+                    </CardHeader>
+                    <CardContent className="flex items-center justify-between">
+                      <section className="flex items-center">
+                        <img
+                          className="w-48 h-48"
+                          src="/src/assets/shoe.png"
+                          alt="Product Picture"
+                        />
+                        <CardContent>
+                          <Button className="p-0 text-xl" variant="link">
+                            {item[0].title}
+                          </Button>
+                          <CardDescription>
+                            {item[0].description}
+                          </CardDescription>
+                        </CardContent>
+                      </section>
 
-                <CardContent>
-                  <Label htmlFor="quantity">Quantity</Label>
-                  <Input type="number" id="quantity" defaultValue={1} />
-                </CardContent>
-              </CardContent>
-            </Card>
+                      <CardContent>
+                        <Label htmlFor="quantity">Quantity</Label>
+                        <Input
+                          type="number"
+                          id="quantity"
+                          defaultValue={item.length}
+                          onChange={(e) => {
+                            handleCartChange(e, item);
+                          }}
+                        />
+                      </CardContent>
+                    </CardContent>
+                  </Card>
+                );
+              })}
           </section>
           <section className="flex-grow">
             <Card className="p-3">
               <CardContent className="flex justify-between">
                 <CardDescription>Price</CardDescription>
-                <CardTitle>$1000</CardTitle>
+                <CardTitle>$ {cartState.cart.totalCost}</CardTitle>
               </CardContent>
               <CardContent className="flex justify-between">
                 <CardDescription>Discount</CardDescription>
@@ -71,7 +97,7 @@ const Checkout = ({}: CheckoutProps) => {
               <hr className="my-2" />
               <CardContent className="flex justify-between">
                 <CardDescription>Total</CardDescription>
-                <CardTitle>$1000</CardTitle>
+                <CardTitle>$ {cartState.cart.totalCost}</CardTitle>
               </CardContent>
               <CardFooter>
                 <Button className="mx-auto">Checkout</Button>
