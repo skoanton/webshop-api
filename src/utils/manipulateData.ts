@@ -1,7 +1,6 @@
-import { CartContext } from "@/contexts/CartContext/CartContext";
-import { useCart } from "@/hooks/useCart";
+
 import { Category, Item } from "@/types/itemsType";
-import { useContext } from "react";
+
 export const getCategories = (items:Item[]): Category[] => {
     
   const categories: Category[] = [];

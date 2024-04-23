@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   Card,
   CardContent,
@@ -21,7 +21,6 @@ import { CartContext } from "@/contexts/CartContext/CartContext";
 import { Item } from "@/types/itemsType";
 import { CART_ACTION } from "@/contexts/CartContext/CartReducer";
 import { useToast } from "../ui/use-toast";
-import { title } from "process";
 type ProductCardProps = {
   id: number | string;
   big: boolean;

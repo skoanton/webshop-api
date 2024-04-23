@@ -8,12 +8,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { useContext, useRef, useState } from "react";
 import { Button } from "../ui/button";
-import { ArrowLeft, Search, Text } from "lucide-react";
+import { Search } from "lucide-react";
 import { FilterContext } from "@/contexts/FilterProvider/FilterContext";
 import { FILTER_ACTION } from "@/contexts/FilterProvider/FilterReducer";
 import { ItemsContext } from "@/contexts/ItemContext/ItemsContext";
 import { ITEM_ACTION } from "@/contexts/ItemContext/ItemsReducer";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { getCategories } from "@/utils/manipulateData";
 import {
   NavigationMenu,
