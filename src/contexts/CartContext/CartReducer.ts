@@ -36,7 +36,7 @@ export const cartReducer = (
               if (index === itemIndex) {
                 return [
                   ...group,
-                  ...Array.from({ length:1 }, () => action.payload.item),
+                  ...Array.from({ length:action.payload.quanity }, () => action.payload.item),
                 ];
               }
               return group;
