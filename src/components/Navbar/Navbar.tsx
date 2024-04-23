@@ -101,17 +101,19 @@ const Navbar = ({}: NavbarProps) => {
             })
           )}
         </section>
-        <Select onValueChange={(e) => sort(e)}>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Sort By" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="priceDesc">Price (low to high)</SelectItem>
-            <SelectItem value="priceAsc">Price (high to low)</SelectItem>
-            <SelectItem value="nameAsc">Name (A to Z)</SelectItem>
-            <SelectItem value="nameDesc">Name (Z to A)</SelectItem>
-          </SelectContent>
-        </Select>
+        {location.pathname === "/" && (
+          <Select onValueChange={(e) => sort(e)}>
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Sort By" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="priceDesc">Price (low to high)</SelectItem>
+              <SelectItem value="priceAsc">Price (high to low)</SelectItem>
+              <SelectItem value="nameAsc">Name (A to Z)</SelectItem>
+              <SelectItem value="nameDesc">Name (Z to A)</SelectItem>
+            </SelectContent>
+          </Select>
+        )}
       </section>
     </section>
   );

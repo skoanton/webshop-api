@@ -29,7 +29,6 @@ export const cartReducer = (
     case CART_ACTION.ADD_ITEM:
         console.log("Starting to add items to cart");
         const itemIndex = getIndexOfItem(action.payload.item,cartState.cart.items);
-  
         if (itemIndex !== -1) {
             const newItems = cartState.cart.items.map((group, index) => {
               //Item already exists
@@ -98,7 +97,6 @@ export const cartReducer = (
       case CART_ACTION.DELETE_ITEM: 
         
       const deleteIndexValue = getIndexOfItem(action.payload.item,cartState.cart.items);
-
       if(deleteIndexValue !== -1){
 
         const newGroup = cartState.cart.items.map((group,index) => {
