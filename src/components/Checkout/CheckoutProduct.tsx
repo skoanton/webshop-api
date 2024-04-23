@@ -90,7 +90,7 @@ const CheckoutProduct = ({ item }: CheckoutProductProps) => {
                 <Input
                   className="w-2/3 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                   type="number"
-                  value={item.length}
+                  value={quanity}
                   id="quantity"
                   onChange={(e) => {
                     handleChange(e);
