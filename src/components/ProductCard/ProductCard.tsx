@@ -9,7 +9,7 @@ import {
 } from "../ui/card";
 import { Label } from "@/components/ui/label";
 
-import { ChangeEvent, useContext, useEffect, useRef, useState } from "react";
+import { ChangeEvent, useContext, useEffect, useState } from "react";
 
 import { Button } from "../ui/button";
 import { ArrowLeft, Heart, ShoppingBasket } from "lucide-react";
@@ -20,6 +20,8 @@ import { ItemsContext } from "@/contexts/ItemContext/ItemsContext";
 import { CartContext } from "@/contexts/CartContext/CartContext";
 import { Item } from "@/types/itemsType";
 import { CART_ACTION } from "@/contexts/CartContext/CartReducer";
+import { useToast } from "../ui/use-toast";
+import { title } from "process";
 type ProductCardProps = {
   id: number | string;
   big: boolean;
@@ -30,6 +32,8 @@ const ProductCard = ({ id, big }: ProductCardProps) => {
   const { cartDispatch } = useContext(CartContext);
   const [currentCost, setCurrentCost] = useState<number>(0);
   const [quanity, setQuanity] = useState(1);
+  const { toast } = useToast();
+
   const currentItem: Item | undefined = itemsState.items.find(
     (item) => item.id.toString() === id.toString()
   );
@@ -46,6 +50,12 @@ const ProductCard = ({ id, big }: ProductCardProps) => {
     cartDispatch({
       type: CART_ACTION.ADD_ITEM,
       payload: { item: item, quanity: quanity },
+    });
+
+    toast({
+      title: "Item added",
+      description: `${item.title} added to shopping cart`,
+      duration: 1000,
     });
   };
 
@@ -79,7 +89,11 @@ const ProductCard = ({ id, big }: ProductCardProps) => {
               <p className="font-bold text-xl text-secondary-foreground">
                 ${currentItem.price}
               </p>
-              <Button onClick={() => handleAddToCart(currentItem, 1)}>
+              <Button
+                onClick={() => {
+                  handleAddToCart(currentItem, 1);
+                }}
+              >
                 <ShoppingBasket className="w-4 h-4" />
               </Button>
             </CardFooter>

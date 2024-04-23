@@ -7,6 +7,7 @@ import ProductPage from "./pages/ProductPage";
 
 import GlobalProvider from "./contexts/GlobalContext/GlobalProvider";
 import CheckoutPage from "./pages/CheckoutPage";
+import { Toaster } from "./components/ui/toaster";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <GlobalProvider>
       <RouterProvider router={router} />
+      <Toaster />
     </GlobalProvider>
   </React.StrictMode>
 );
