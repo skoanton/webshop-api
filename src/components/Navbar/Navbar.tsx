@@ -11,13 +11,15 @@ import { Button } from "../ui/button";
 import { ArrowLeft, Search, Text } from "lucide-react";
 import { FilterContext } from "@/contexts/FilterProvider/FilterContext";
 import { FILTER_ACTION } from "@/contexts/FilterProvider/FilterReducer";
+import { ItemsContext } from "@/contexts/ItemContext/ItemsContext";
+import { ITEM_ACTION } from "@/contexts/ItemContext/ItemsReducer";
 
 type NavbarProps = {};
 
 const Navbar = ({}: NavbarProps) => {
   const { filterDispatch } = useContext(FilterContext);
   const [searchString, setSearchString] = useState("");
-
+  const { itemsDispatch } = useContext(ItemsContext);
   const inputSearchRef = useRef<HTMLInputElement>(null);
   const handleSearch = () => {
     console.log("searching");
@@ -30,6 +32,27 @@ const Navbar = ({}: NavbarProps) => {
       inputSearchRef.current.focus();
     }
   };
+
+  const sort = (sortType: string) => {
+    switch (sortType) {
+      case "priceDesc":
+        itemsDispatch({ type: ITEM_ACTION.SORT_PRICE_DESC });
+        break;
+      case "priceAsc":
+        itemsDispatch({ type: ITEM_ACTION.SORT_PRICE_ASC });
+        break;
+      case "nameAsc":
+        itemsDispatch({ type: ITEM_ACTION.SORT_NAME_ASC });
+        break;
+      case "nameDesc":
+        itemsDispatch({ type: ITEM_ACTION.SORT_NAME_DESC });
+        break;
+
+      default:
+        break;
+    }
+  };
+
   return (
     <section className="mb-4 flex flex-col gap-2">
       <section className="flex h-fit">
@@ -48,7 +71,7 @@ const Navbar = ({}: NavbarProps) => {
             </Button>
           </section>
         </section>
-        <Select>
+        <Select onValueChange={(e) => sort(e)}>
           <SelectTrigger className="w-[180px]">
             <SelectValue placeholder="Sort By" />
           </SelectTrigger>
