@@ -10,6 +10,17 @@ import {
   CardDescription,
   CardFooter,
 } from "../ui/card";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Input } from "../ui/input";
 import { CartContext } from "@/contexts/CartContext/CartContext";
 import { CART_ACTION } from "@/contexts/CartContext/CartReducer";
@@ -106,13 +117,31 @@ const CheckoutProduct = ({ item }: CheckoutProductProps) => {
           </CardContent>
         </CardContent>
         <CardFooter className="ml-auto">
-          <Button
-            onClick={() => {
-              handleRemoveItemFromCart();
-            }}
-          >
-            Remove
-          </Button>
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button>Remove</Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>
+                  Are you sure you want to remove this item?
+                </AlertDialogTitle>
+                <AlertDialogDescription>
+                  Are you sure you want to remove
+                  <span className="font-bold text-underline">
+                    {` ${item[0].title} `}
+                  </span>
+                  from your shoppingcart
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction onClick={handleRemoveItemFromCart}>
+                  Continue
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         </CardFooter>
       </Card>
     </>

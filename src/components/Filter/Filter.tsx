@@ -53,6 +53,7 @@ const Filter = ({}: FilterProps) => {
 
   const handleReset = () => {
     filterDispatch({ type: FILTER_ACTION.RESET });
+    toast;
   };
 
   return (
