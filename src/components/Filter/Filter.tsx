@@ -25,7 +25,7 @@ import { FilterContext } from "@/contexts/FilterProvider/FilterContext";
 import { ItemsContext } from "@/contexts/ItemContext/ItemsContext";
 import { Category } from "@/types/itemsType";
 import { FILTER_ACTION } from "@/contexts/FilterProvider/FilterReducer";
-
+import { useToast } from "../ui/use-toast";
 type FilterProps = {};
 
 const Filter = ({}: FilterProps) => {
@@ -33,7 +33,7 @@ const Filter = ({}: FilterProps) => {
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(999);
   const { itemsState } = useContext(ItemsContext);
-
+  const { toast } = useToast();
   const categories: Category[] = getCategories(itemsState.items);
 
   const handleChange = (checked: CheckedState, category: Category) => {
@@ -53,7 +53,11 @@ const Filter = ({}: FilterProps) => {
 
   const handleReset = () => {
     filterDispatch({ type: FILTER_ACTION.RESET });
-    toast;
+    toast({
+      title: "Filter reset",
+      description: "You sucsefully reseted all filters",
+      duration: 1000,
+    });
   };
 
   return (
