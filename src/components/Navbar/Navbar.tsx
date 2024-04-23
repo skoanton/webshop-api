@@ -13,6 +13,15 @@ import { FilterContext } from "@/contexts/FilterProvider/FilterContext";
 import { FILTER_ACTION } from "@/contexts/FilterProvider/FilterReducer";
 import { ItemsContext } from "@/contexts/ItemContext/ItemsContext";
 import { ITEM_ACTION } from "@/contexts/ItemContext/ItemsReducer";
+import { Link, useLocation } from "react-router-dom";
+import { getCategories } from "@/utils/manipulateData";
+import {
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+} from "@radix-ui/react-navigation-menu";
+import { navigationMenuTriggerStyle } from "../ui/navigation-menu";
 
 type NavbarProps = {};
 
@@ -21,6 +30,8 @@ const Navbar = ({}: NavbarProps) => {
   const [searchString, setSearchString] = useState("");
   const { itemsDispatch } = useContext(ItemsContext);
   const inputSearchRef = useRef<HTMLInputElement>(null);
+  const location = useLocation();
+  const { itemsState } = useContext(ItemsContext);
   const handleSearch = () => {
     console.log("searching");
     filterDispatch({
@@ -57,18 +68,38 @@ const Navbar = ({}: NavbarProps) => {
       <section className="flex h-fit">
         <img className="w-52" src="/src/assets/logo.png" alt="Logo" />
         <section className="flex gap-3 mx-auto">
-          <section className="flex gap-3">
-            <Input
-              className="w-80"
-              ref={inputSearchRef}
-              type="text"
-              placeholder="What are you looking for?"
-              onChange={(e) => setSearchString(e.currentTarget.value)}
-            />
-            <Button onClick={handleSearch}>
-              <Search className="mr-2 h-4 w-4" /> Search
-            </Button>
-          </section>
+          {location.pathname === "/" ? (
+            <section className="flex gap-3">
+              <Input
+                className="w-80"
+                ref={inputSearchRef}
+                type="text"
+                placeholder="What are you looking for?"
+                onChange={(e) => setSearchString(e.currentTarget.value)}
+              />
+              <Button onClick={handleSearch}>
+                <Search className="mr-2 h-4 w-4" /> Search
+              </Button>
+            </section>
+          ) : (
+            getCategories(itemsState.items).map((category) => {
+              return (
+                <section key={category.id} className="flex justify-between">
+                  <NavigationMenu className="cursor-pointer">
+                    <NavigationMenuList>
+                      <NavigationMenuItem>
+                        <NavigationMenuLink
+                          className={navigationMenuTriggerStyle()}
+                        >
+                          {category.name}
+                        </NavigationMenuLink>
+                      </NavigationMenuItem>
+                    </NavigationMenuList>
+                  </NavigationMenu>
+                </section>
+              );
+            })
+          )}
         </section>
         <Select onValueChange={(e) => sort(e)}>
           <SelectTrigger className="w-[180px]">
