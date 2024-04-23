@@ -13,7 +13,7 @@ import {
 import { Input } from "../ui/input";
 import { CartContext } from "@/contexts/CartContext/CartContext";
 import { CART_ACTION } from "@/contexts/CartContext/CartReducer";
-import { ChangeEvent, useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { Label } from "@radix-ui/react-label";
 
 type CheckoutProductProps = {
@@ -21,40 +21,29 @@ type CheckoutProductProps = {
 };
 
 const CheckoutProduct = ({ item }: CheckoutProductProps) => {
-  const { cartState, cartDispatch } = useContext(CartContext);
+  const { cartDispatch } = useContext(CartContext);
   const [quanity, setQuanity] = useState(item.length);
 
-  const handleCartChange = (newQuantity: number) => {
-    if (newQuantity === 0) {
-      handleRemoveItemFromCart();
-    }
-    if (newQuantity <= item.length) {
-      cartDispatch({
-        type: CART_ACTION.REMOVE_ITEM,
-        payload: { item: item[0], quanity: newQuantity },
-      });
+  const handleCartChange = (action: string) => {
+    if (action === "decrement") {
+      if (item.length - 1 <= 0) {
+        console.log("item.lentgh kan inte bli mindre");
+        return;
+      }
+      cartDispatch({ type: CART_ACTION.REMOVE_ITEM, payload: item[0] });
     } else {
       cartDispatch({
         type: CART_ACTION.ADD_ITEM,
-        payload: { item: item[0], quanity: newQuantity },
+        payload: { item: item[0], quanity: 1 },
       });
     }
   };
-
   const handleRemoveItemFromCart = () => {
     cartDispatch({
       type: CART_ACTION.DELETE_ITEM,
       payload: { item: item[0], quanity: item.length },
     });
   };
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log("changing value on quanity");
-    const newQuantity = quanity + 1;
-    setQuanity(Number(e.currentTarget.value));
-    handleCartChange(newQuantity);
-  };
-  const decrement = () => setQuanity((prev) => Math.max(0, prev - 1));
-  const increment = () => setQuanity((prev) => prev + 1);
 
   return (
     <>
@@ -72,6 +61,8 @@ const CheckoutProduct = ({ item }: CheckoutProductProps) => {
               alt="Product Picture"
             />
             <CardContent>
+              <p>qunaity: {quanity}</p>
+              <p>item-legnth: {item.length}</p>
               <Link to={`/product/${item[0].id.toString()}`}>
                 <Button className="p-0 text-xl" variant="link">
                   {item[0].title}
@@ -91,16 +82,14 @@ const CheckoutProduct = ({ item }: CheckoutProductProps) => {
                   className="w-2/3 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                   type="number"
                   value={quanity}
+                  readOnly
                   id="quantity"
-                  onChange={(e) => {
-                    handleChange(e);
-                  }}
                 />
                 <section className="flex gap-2">
                   <Button
                     onClick={() => {
-                      decrement();
-                      handleCartChange(quanity - 1);
+                      handleCartChange("decrement");
+                      setQuanity(Math.max(1, item.length - 1));
                     }}
                     variant="secondary"
                   >
@@ -108,8 +97,8 @@ const CheckoutProduct = ({ item }: CheckoutProductProps) => {
                   </Button>
                   <Button
                     onClick={() => {
-                      increment();
-                      handleCartChange(quanity + 1);
+                      handleCartChange("increment");
+                      setQuanity(item.length + 1);
                     }}
                     variant="secondary"
                   >

@@ -28,7 +28,6 @@ const Navbar = ({}: NavbarProps) => {
       payload: searchString,
     });
     if (inputSearchRef.current) {
-      inputSearchRef.current.value = "";
       inputSearchRef.current.focus();
     }
   };

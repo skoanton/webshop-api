@@ -36,7 +36,7 @@ export const cartReducer = (
               if (index === itemIndex) {
                 return [
                   ...group,
-                  ...Array.from({ length: 1 }, () => action.payload.item),
+                  ...Array.from({ length:1 }, () => action.payload.item),
                 ];
               }
               return group;
@@ -72,7 +72,7 @@ export const cartReducer = (
         }  
     case CART_ACTION.REMOVE_ITEM:
       console.log("Removing item from cart");
-      const removeItemIndex = getIndexOfItem(action.payload.item,cartState.cart.items);
+      const removeItemIndex = getIndexOfItem(action.payload,cartState.cart.items);
 
       if (removeItemIndex !== -1) {
         const newGroups = cartState.cart.items.map((group, index) => {
@@ -88,7 +88,7 @@ export const cartReducer = (
           ...cartState,
           cart: {
             items: newGroups,
-            totalCost: (cartState.cart.totalCost - action.payload.item.price) - cartState.cart.discount,
+            totalCost: (cartState.cart.totalCost - action.payload.price) - cartState.cart.discount,
             discount: cartState.cart.discount
           },
         };
@@ -109,7 +109,6 @@ export const cartReducer = (
         });
         //remove empty array
         const finalGroups = newGroup.filter(group => group.length > 0);
-        console.log("New group:",finalGroups);
 
        return {
           ...cartState,

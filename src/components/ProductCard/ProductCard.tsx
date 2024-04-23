@@ -52,7 +52,7 @@ const ProductCard = ({ id, big }: ProductCardProps) => {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setQuanity(Number(e.currentTarget.value));
   };
-  const decrement = () => setQuanity((prev) => prev - 1);
+  const decrement = () => setQuanity((prev) => Math.max(1, prev - 1));
   const increment = () => setQuanity((prev) => prev + 1);
 
   return (

@@ -25,6 +25,7 @@ export const filterReducer = (
                 ...filterState.filters.categories,
                 action.payload.name,
               ],
+            
             },
           };
         
