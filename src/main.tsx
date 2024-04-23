@@ -7,10 +7,8 @@ import ProductPage from "./pages/ProductPage";
 
 import GlobalProvider from "./contexts/GlobalContext/GlobalProvider";
 import CheckoutPage from "./pages/CheckoutPage";
-import { Toaster } from "./components/ui/toaster";
 import { fetchDataLoader } from "./api/fetchData";
 import Root from "./pages/Root";
-import { Home } from "lucide-react";
 
 const router = createBrowserRouter([
   {

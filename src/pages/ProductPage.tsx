@@ -1,4 +1,3 @@
-import Header from "@/components/Header/Header";
 import ProductCard from "@/components/ProductCard/ProductCard";
 import { useParams } from "react-router-dom";
 
