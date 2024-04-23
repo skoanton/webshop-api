@@ -27,7 +27,6 @@ const CheckoutProduct = ({ item }: CheckoutProductProps) => {
   const handleCartChange = (action: string) => {
     if (action === "decrement") {
       if (item.length - 1 <= 0) {
-        console.log("item.lentgh kan inte bli mindre");
         return;
       }
       cartDispatch({ type: CART_ACTION.REMOVE_ITEM, payload: item[0] });
@@ -49,7 +48,6 @@ const CheckoutProduct = ({ item }: CheckoutProductProps) => {
     <>
       <Card key={item[0].id} className="flex flex-col">
         <CardHeader className="ml-auto">
-          <p>{`/product/${item[0].id.toString()}`}</p>
           <CardTitle>$ {item.length * item[0].price}</CardTitle>
         </CardHeader>
 
@@ -61,8 +59,6 @@ const CheckoutProduct = ({ item }: CheckoutProductProps) => {
               alt="Product Picture"
             />
             <CardContent>
-              <p>qunaity: {quanity}</p>
-              <p>item-legnth: {item.length}</p>
               <Link to={`/product/${item[0].id.toString()}`}>
                 <Button className="p-0 text-xl" variant="link">
                   {item[0].title}
