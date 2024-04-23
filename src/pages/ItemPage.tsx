@@ -6,7 +6,6 @@ type ItemPageProps = {};
 
 const ItemPage = ({}: ItemPageProps) => {
   const params = useParams<{ profileId: string }>();
-  console.log(params.profileId);
   return (
     <>
       <Navbar />

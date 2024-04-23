@@ -8,11 +8,13 @@ import ProductPage from "./pages/ProductPage";
 import GlobalProvider from "./contexts/GlobalContext/GlobalProvider";
 import CheckoutPage from "./pages/CheckoutPage";
 import { Toaster } from "./components/ui/toaster";
+import { fetchDataLoader } from "./api/fetchData";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <HomePage />,
+    loader: fetchDataLoader,
   },
   {
     path: "/product/:profileId",

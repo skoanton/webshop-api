@@ -19,24 +19,6 @@ const Products = ({}: ProductsProps) => {
     url: BASE_URL,
   });
 
-  useEffect(() => {
-    if (fetchedData) {
-      //Weird image links in api response
-      const cleanedData = fetchedData.map((item) => {
-        const cleanedImages = item.images.map((imageString) =>
-          imageString.replace(/"/g, "").replace("[", "").replace("]", "")
-        );
-        return { ...item, images: cleanedImages };
-      });
-
-      itemsDispatch({
-        type: ITEM_ACTION.ADD,
-        payload:
-          fetchedData /*BYT UT OM DET INTE FUNGERAR cleanedData | fetchedData*/,
-      });
-    }
-  }, [fetchedData]);
-
   const filteredByCategories = (items: Item[]): Item[] => {
     let test = items.filter((item) => {
       if (filterState.filters.categories.length === 0) {
