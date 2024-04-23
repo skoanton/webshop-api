@@ -9,7 +9,6 @@ const ProductPage = ({}: HomePageProps) => {
   console.log(params.profileId);
   return (
     <>
-      <Header />
       <ProductCard id={params.profileId as string} big={true} />
     </>
   );
