@@ -17,42 +17,21 @@ const Header = ({}: HeaderProps) => {
   const { cartState } = useContext(CartContext);
   console.log("Updatering cart");
   return (
-    <header className="mx-2">
-      <section className="flex justify-between">
-        <NavigationMenu className="cursor-pointer">
-          <NavigationMenuList>
-            <NavigationMenuItem>
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                Contact us
-              </NavigationMenuLink>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                About us
-              </NavigationMenuLink>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                FAQ
-              </NavigationMenuLink>
-            </NavigationMenuItem>
-          </NavigationMenuList>
-        </NavigationMenu>
-        <section>
-          <Link to="/checkout">
-            <Button variant={"link"} className="relative">
-              <ShoppingCart className="w-8 h-8" />
-              <div className="absolute bottom-6 right-2 rounded bg-secondary w-4 h-4 text-center">
-                {cartState.cart.items.reduce(
-                  (total, currentArray) => total + currentArray.length,
-                  0
-                )}
-              </div>
-            </Button>
-          </Link>
-        </section>
-      </section>
+    <header className="p-2 flex justify-center border mb-2">
       <Navbar />
+      <section>
+        <Link to="/checkout">
+          <Button variant={"link"} className="relative">
+            <ShoppingCart className="w-8 h-8" />
+            <div className="absolute bottom-6 right-2 rounded bg-secondary w-4 h-4 text-center">
+              {cartState.cart.items.reduce(
+                (total, currentArray) => total + currentArray.length,
+                0
+              )}
+            </div>
+          </Button>
+        </Link>
+      </section>
     </header>
   );
 };

@@ -64,7 +64,7 @@ const Navbar = ({}: NavbarProps) => {
   };
 
   return (
-    <section className="mb-4 flex flex-col gap-2">
+    <section className="flex-grow">
       <section className="flex h-fit">
         <img className="w-52" src="/src/assets/logo.png" alt="Logo" />
         <section className="flex gap-3 mx-auto">
