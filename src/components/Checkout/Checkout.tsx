@@ -17,6 +17,7 @@ import { CART_ACTION } from "@/contexts/CartContext/CartReducer";
 
 import { discountCodes } from "@/data/discounts";
 import CheckoutProduct from "./CheckoutProduct";
+import EmptyCheckout from "./EmptyCheckout";
 
 type CheckoutProps = {};
 
@@ -35,10 +36,13 @@ const Checkout = ({}: CheckoutProps) => {
         </section>
         <section className="flex justify-between w-full gap-3">
           <section className="w-2/3 flex flex-col gap-2">
-            {cartState.cart.items &&
+            {cartState.cart.items.length > 0 ? (
               cartState.cart.items.map((item) => {
                 return <CheckoutProduct key={item[0].id} item={item} />;
-              })}
+              })
+            ) : (
+              <EmptyCheckout />
+            )}
           </section>
           <section className="flex-grow">
             <Card className="p-3">
