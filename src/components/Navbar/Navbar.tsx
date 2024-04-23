@@ -67,7 +67,11 @@ const Navbar = ({}: NavbarProps) => {
     <section className="flex-grow">
       <section className="flex h-fit">
         <Link to="/">
-          <img className="w-52" src="/src/assets/logo.png" alt="Logo" />
+          <img
+            className="hidden lg:block w-52"
+            src="/src/assets/logo.png"
+            alt="Logo"
+          />
         </Link>
         <section className="flex gap-3 mx-auto">
           {location.pathname === "/" ? (
@@ -80,7 +84,8 @@ const Navbar = ({}: NavbarProps) => {
                 onChange={(e) => setSearchString(e.currentTarget.value)}
               />
               <Button onClick={handleSearch}>
-                <Search className="mr-2 h-4 w-4" /> Search
+                <Search className="h-4 w-4 lg:mr-2" />{" "}
+                <span className="hidden lg:inline">Search</span>
               </Button>
             </section>
           ) : (
