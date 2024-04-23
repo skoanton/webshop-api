@@ -13,7 +13,7 @@ import { FilterContext } from "@/contexts/FilterProvider/FilterContext";
 import { FILTER_ACTION } from "@/contexts/FilterProvider/FilterReducer";
 import { ItemsContext } from "@/contexts/ItemContext/ItemsContext";
 import { ITEM_ACTION } from "@/contexts/ItemContext/ItemsReducer";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { getCategories } from "@/utils/manipulateData";
 import {
   NavigationMenu,
@@ -66,7 +66,9 @@ const Navbar = ({}: NavbarProps) => {
   return (
     <section className="flex-grow">
       <section className="flex h-fit">
-        <img className="w-52" src="/src/assets/logo.png" alt="Logo" />
+        <Link to="/">
+          <img className="w-52" src="/src/assets/logo.png" alt="Logo" />
+        </Link>
         <section className="flex gap-3 mx-auto">
           {location.pathname === "/" ? (
             <section className="flex gap-3">

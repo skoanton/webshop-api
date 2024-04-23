@@ -1,10 +1,3 @@
-import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu";
 import { Button } from "../ui/button";
 import { ShoppingCart } from "lucide-react";
 import Navbar from "../Navbar/Navbar";
@@ -15,7 +8,6 @@ type HeaderProps = {};
 
 const Header = ({}: HeaderProps) => {
   const { cartState } = useContext(CartContext);
-  console.log("Updatering cart");
   return (
     <header className="p-2 flex justify-center border mb-2">
       <Navbar />
