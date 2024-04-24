@@ -86,7 +86,7 @@ const ProductCard = ({ id, big }: ProductCardProps) => {
             </Link>
             <CardFooter className="flex-row justify-between mt-auto">
               <p className="font-bold text-xl text-secondary-foreground">
-                ${currentItem.price}
+                ${currentItem.price.toFixed(2)}
               </p>
               <Button
                 onClick={() => {
@@ -144,7 +144,7 @@ const ProductCard = ({ id, big }: ProductCardProps) => {
                     <section className="flex flex-col">
                       <p>Price</p>
                       <p className="font-bold text-secondary-foreground text-xl">
-                        $ {currentItem.price}
+                        $ {currentItem.price.toFixed(2)}
                       </p>
                     </section>
                     <section>
@@ -192,7 +192,7 @@ const ProductCard = ({ id, big }: ProductCardProps) => {
                         Price
                       </CardDescription>
                       <p className="font-bold text-secondary-foreground">
-                        $ {currentItem.price}
+                        $ {currentItem.price.toFixed(2)}
                       </p>
                     </section>
                     <hr />
@@ -201,7 +201,7 @@ const ProductCard = ({ id, big }: ProductCardProps) => {
                         Total
                       </CardDescription>
                       <p className="font-bold text-secondary-foreground">
-                        $ {currentCost}
+                        $ {currentCost.toFixed(2)}
                       </p>
                     </section>
                   </CardContent>

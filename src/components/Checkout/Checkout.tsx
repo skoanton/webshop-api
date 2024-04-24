@@ -75,15 +75,15 @@ const Checkout = ({}: CheckoutProps) => {
 
               <CardContent className="flex justify-between">
                 <CardDescription>Discount</CardDescription>
-                <CardTitle> $ {cartState.cart.discount}</CardTitle>
+                <CardTitle> $ {cartState.cart.discount.toFixed(2)}</CardTitle>
               </CardContent>
               <hr className="my-2" />
               <CardContent className="flex justify-between">
                 <CardDescription>Total</CardDescription>
                 {cartState.cart.totalCost - cartState.cart.discount > 0 ? (
-                  <CardTitle>$ {cartState.cart.totalCost}</CardTitle>
+                  <CardTitle>$ {cartState.cart.totalCost.toFixed(2)}</CardTitle>
                 ) : (
-                  <CardTitle>$ 0</CardTitle>
+                  <CardTitle>$ 0.00</CardTitle>
                 )}
               </CardContent>
               <CardFooter>
