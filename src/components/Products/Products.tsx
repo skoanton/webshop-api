@@ -12,19 +12,15 @@ import { ITEM_ACTION } from "@/contexts/ItemContext/ItemsReducer";
 type ProductsProps = {};
 
 const Products = ({}: ProductsProps) => {
-  const BASE_URL = "https://api.escuelajs.co/api/v1/products";
   const { itemsState, itemsDispatch } = useContext(ItemsContext);
   const { filterState } = useContext(FilterContext);
-  const fetchedData: Item[] | null = useFetch<Item[]>({
-    url: BASE_URL,
-  });
 
   const filteredByCategories = (items: Item[]): Item[] => {
     let test = items.filter((item) => {
       if (filterState.filters.categories.length === 0) {
         return true; // returns all items
       } else {
-        return filterState.filters.categories.includes(item.category.name);
+        return filterState.filters.categories.includes(item.category);
       }
     });
 

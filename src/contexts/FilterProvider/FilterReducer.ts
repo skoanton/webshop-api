@@ -23,7 +23,7 @@ export const filterReducer = (
               ...filterState.filters,
               categories: [
                 ...filterState.filters.categories,
-                action.payload.name,
+                action.payload,
               ],
             
             },
@@ -32,7 +32,7 @@ export const filterReducer = (
   
       case FILTER_ACTION.REMOVE:
           const updatedFilter = filterState.filters.categories.filter(
-            (categoryName) => categoryName != action.payload.name
+            (categoryName) => categoryName != action.payload
           );
           return {
             ...filterState,

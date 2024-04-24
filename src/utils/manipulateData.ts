@@ -5,7 +5,7 @@ export const getCategories = (items:Item[]): Category[] => {
     
   const categories: Category[] = [];
   items.map((item) => {
-    if (!categories.some((category) => category.id === item.category.id)) {
+    if (!categories.some((category) => category === item.category)) {
       categories.push(item.category);
     }
   });

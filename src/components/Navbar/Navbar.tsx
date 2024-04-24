@@ -86,14 +86,14 @@ const Navbar = ({}: NavbarProps) => {
           ) : (
             getCategories(itemsState.items).map((category) => {
               return (
-                <section key={category.id} className="flex justify-between">
+                <section key={category} className="flex justify-between">
                   <NavigationMenu className="cursor-pointer">
                     <NavigationMenuList>
                       <NavigationMenuItem>
                         <NavigationMenuLink
                           className={navigationMenuTriggerStyle()}
                         >
-                          {category.name}
+                          {category}
                         </NavigationMenuLink>
                       </NavigationMenuItem>
                     </NavigationMenuList>

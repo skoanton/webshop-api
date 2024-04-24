@@ -73,11 +73,11 @@ const Filter = ({}: FilterProps) => {
               <AccordionContent>
                 {categories.map((category) => {
                   return (
-                    <div key={category.id} className="items-top flex space-x-2">
+                    <div key={category} className="items-top flex space-x-2">
                       <Checkbox
-                        id={category.id.toString()}
+                        id={category}
                         defaultChecked={filterState.filters.categories.includes(
-                          category.name
+                          category
                         )}
                         onCheckedChange={(checked) =>
                           handleChange(checked, category)
@@ -85,10 +85,10 @@ const Filter = ({}: FilterProps) => {
                       />
                       <div className="grid gap-2 leading-none">
                         <label
-                          htmlFor={category.id.toString()}
+                          htmlFor={category}
                           className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                         >
-                          {category.name}
+                          {category}
                         </label>
                       </div>
                     </div>

@@ -32,7 +32,7 @@ import { useContext, useEffect } from "react";
 
  export const fetchDataLoader  = async() : Promise<Item[]> => {
     console.log("Fetchin data from api");
-    const URL = "https://api.escuelajs.co/api/v1/products";
+    const URL = "https://fakestoreapi.com/products";
 
     try {
         const response = await fetch(URL);
@@ -42,6 +42,7 @@ import { useContext, useEffect } from "react";
         }
 
         const fetchedData : Item[] = await response.json();
+        console.log(fetchedData);
         return fetchedData;
         
     } catch (error) {

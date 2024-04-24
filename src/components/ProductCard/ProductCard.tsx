@@ -73,7 +73,7 @@ const ProductCard = ({ id, big }: ProductCardProps) => {
               <CardContent className="bg-secondary">
                 <img
                   className="w-32 h-32 mx-auto"
-                  src={"/src/assets/shoe.png"}
+                  src={currentItem.image}
                   alt="Product image"
                 />
               </CardContent>
@@ -81,7 +81,7 @@ const ProductCard = ({ id, big }: ProductCardProps) => {
             <Link to={`product/${currentItem.id.toString()}`}>
               <CardHeader>
                 <CardTitle>{currentItem.title}</CardTitle>
-                <CardDescription>{currentItem.category.name}</CardDescription>
+                <CardDescription>{currentItem.category}</CardDescription>
               </CardHeader>
             </Link>
             <CardFooter className="flex-row justify-between mt-auto">
@@ -111,29 +111,24 @@ const ProductCard = ({ id, big }: ProductCardProps) => {
               <section className="w-1/3 h-full">
                 <img
                   className="w-3/4 mx-auto"
-                  src={"/src/assets/shoe.png"}
+                  src={currentItem.image}
                   alt="Product page"
                 />
                 <ItemCarousel
                   images={[
-                    "/src/assets/shoe.png",
-                    "/src/assets/shoe.png",
-                    "/src/assets/shoe.png",
-                    "/src/assets/shoe.png",
-                    "/src/assets/shoe.png",
-                    "/src/assets/shoe.png",
-                    "/src/assets/shoe.png",
-                    "/src/assets/shoe.png",
-                    "/src/assets/shoe.png",
+                    `${currentItem.image}`,
+                    `${currentItem.image}`,
+                    `${currentItem.image}`,
+                    `${currentItem.image}`,
+                    `${currentItem.image}`,
+                    `${currentItem.image}`,
                   ]}
                 />
               </section>
               <section className="w-1/3 h-full">
                 <Card className="flex flex-col justify-between">
                   <CardHeader>
-                    <CardDescription>
-                      {currentItem.category.name}
-                    </CardDescription>
+                    <CardDescription>{currentItem.category}</CardDescription>
                     <CardTitle>{currentItem.title}</CardTitle>
                   </CardHeader>
 
