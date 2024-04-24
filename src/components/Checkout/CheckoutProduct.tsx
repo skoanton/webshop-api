@@ -66,7 +66,7 @@ const CheckoutProduct = ({ item }: CheckoutProductProps) => {
           <section className="flex items-center">
             <img
               className="w-48 h-48"
-              src="/src/assets/shoe.png"
+              src={item[0].image}
               alt="Product Picture"
             />
             <CardContent>

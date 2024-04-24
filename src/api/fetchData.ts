@@ -14,12 +14,12 @@ import { useContext, useEffect } from "react";
         console.log("Fetchin data from api");
         if (fetchedData) {
           //Weird image links in api response
-          const cleanedData = fetchedData.map((item) => {
+         /*  const cleanedData = fetchedData.map((item) => {
             const cleanedImages = item.images.map((imageString) =>
               imageString.replace(/"/g, "").replace("[", "").replace("]", "")
             );
             return { ...item, images: cleanedImages };
-          });
+          }); */
     
           itemsDispatch({
             type: ITEM_ACTION.ADD,
