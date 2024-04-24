@@ -6,17 +6,11 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
-import { useContext, useEffect, useState } from "react";
-import { ItemsContext } from "@/contexts/ItemContext/ItemsContext";
-
 type CarouselProps = {
   images: string[];
 };
 
 const ItemCarousel = ({ images }: CarouselProps) => {
-  const { itemsState } = useContext(ItemsContext);
-  const totalItemsToShow = 5;
-
   const imagesInCarousel = images.slice(1);
 
   return (

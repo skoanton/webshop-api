@@ -69,10 +69,10 @@ const ProductCard = ({ id, big }: ProductCardProps) => {
       {currentItem &&
         (!big ? (
           <Card key={id} className={`flex flex-col justify-between h-96`}>
-            <Link to={`product/${currentItem.id.toString()}`}>
-              <CardContent className="bg-secondary">
+            <Link to={`product/${currentItem.id.toString()}`} className="">
+              <CardContent className="bg-secondary w-full h-full flex justify-center items-center p-6">
                 <img
-                  className="w-32 h-32 mx-auto"
+                  className="w-32 h-32"
                   src={currentItem.image}
                   alt="Product image"
                 />
@@ -108,9 +108,9 @@ const ProductCard = ({ id, big }: ProductCardProps) => {
             </section>
 
             <section className="flex gap-2 h-full">
-              <section className="w-1/3 h-full">
+              <section className="w-1/3 h-full flex flex-col gap-4">
                 <img
-                  className="w-3/4 mx-auto"
+                  className="w-2/4 mx-auto"
                   src={currentItem.image}
                   alt="Product page"
                 />
