@@ -9,12 +9,14 @@ import GlobalProvider from "./contexts/GlobalContext/GlobalProvider";
 import CheckoutPage from "./pages/CheckoutPage";
 import { fetchDataLoader } from "./api/fetchData";
 import Root from "./pages/Root";
+import ErrorPage from "./pages/ErrorPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
     loader: fetchDataLoader,
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true,
