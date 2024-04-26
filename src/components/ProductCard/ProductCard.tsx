@@ -73,7 +73,7 @@ const ProductCard = ({ id, big }: ProductCardProps) => {
               <CardContent className="bg-secondary w-full h-full flex justify-center items-center p-6">
                 <img
                   className="w-32 h-32"
-                  src={currentItem.image}
+                  src="src/assets/shoe.png"
                   alt="Product image"
                 />
               </CardContent>
@@ -111,17 +111,17 @@ const ProductCard = ({ id, big }: ProductCardProps) => {
               <section className="w-1/3 h-full flex flex-col gap-4">
                 <img
                   className="w-2/4 mx-auto"
-                  src={currentItem.image}
+                  src="/src/assets/shoe.png"
                   alt="Product page"
                 />
                 <ItemCarousel
                   images={[
-                    `${currentItem.image}`,
-                    `${currentItem.image}`,
-                    `${currentItem.image}`,
-                    `${currentItem.image}`,
-                    `${currentItem.image}`,
-                    `${currentItem.image}`,
+                    "/src/assets/shoe.png",
+                    "/src/assets/shoe.png",
+                    "/src/assets/shoe.png",
+                    "/src/assets/shoe.png",
+                    "/src/assets/shoe.png",
+                    "/src/assets/shoe.png",
                   ]}
                 />
               </section>
